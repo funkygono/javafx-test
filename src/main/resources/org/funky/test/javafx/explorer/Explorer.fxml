@@ -13,8 +13,8 @@
 
     <center>
         <SplitPane>
-            <TreeView fx:id="folderTreeView" showRoot="false"/>
-            <TableView fx:id="folderTableView">
+            <TreeView fx:id="treeView" showRoot="false"/>
+            <TableView fx:id="tableView">
                 <columns>
                     <TableColumn text="Name" fx:id="nameColumn"/>
                     <TableColumn text="Attributes"/>

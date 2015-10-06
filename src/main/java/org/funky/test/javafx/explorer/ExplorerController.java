@@ -20,22 +20,22 @@ public class ExplorerController implements Initializable {
     @FXML
     private TextField addressTextField;
     @FXML
-    private TreeView<String> folderTreeView;
+    private TreeView<String> treeView;
     @FXML
-    private TableView<DirectoryContent> folderTableView;
+    private TableView<DirectoryContent> tableView;
     @FXML
     private TableColumn<DirectoryContent, String> nameColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        folderTreeView.setRoot(new ComputerTreeItem());
+        treeView.setRoot(new ComputerTreeItem());
         addressTextField.textProperty().bindBidirectional(currentDirectory.pathProperty());
-        folderTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue instanceof PathTreeItem) {
                 currentDirectory.setPath(((PathTreeItem) newValue).getPath().toString());
             }
         });
-        folderTableView.itemsProperty().bind(currentDirectory.directoryContentsProperty());
+        tableView.itemsProperty().bind(currentDirectory.directoryContentsProperty());
         nameColumn.setCellValueFactory(cellValue -> cellValue.getValue().nameProperty());
 
 
