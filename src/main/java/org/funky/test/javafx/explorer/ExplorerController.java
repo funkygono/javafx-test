@@ -2,12 +2,12 @@ package org.funky.test.javafx.explorer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeView;
 
 import java.net.URL;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 /**
@@ -15,48 +15,32 @@ import java.util.ResourceBundle;
  */
 public class ExplorerController implements Initializable {
 
+    private final Directory currentDirectory = new Directory();
+
     @FXML
     private TextField addressTextField;
     @FXML
     private TreeView<String> folderTreeView;
     @FXML
-    private TableView<Path> folderTableView;
+    private TableView<DirectoryContent> folderTableView;
     @FXML
-    private TableColumn<Path, String> nameColumn;
-
-    public void setAddress(String address) {
-        Path path = FileSystems.getDefault().getPath(address);
-
-        if (Files.isDirectory(path)) {
-            addressTextField.setText(address);
-            updateTreeView(path);
-            updateTableView(path);
-        } else {
-            throw new RuntimeException("Invalid path: " + path);
-        }    }
-
-    private void updateTableView(Path path) {
-    }
-
-    private void updateTreeView(Path path) {
-        TreeItem<String> root = folderTreeView.getRoot();
-    }
+    private TableColumn<DirectoryContent, String> nameColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         folderTreeView.setRoot(new ComputerTreeItem());
-
-        addressTextField.textProperty().addListener((observable, oldValue, newValue) -> setAddress(newValue));
+        addressTextField.textProperty().bindBidirectional(currentDirectory.pathProperty());
         folderTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue instanceof PathTreeItem) {
-                setAddress(((PathTreeItem) newValue).getPath().toString());
+                currentDirectory.setPath(((PathTreeItem) newValue).getPath().toString());
             }
         });
+        folderTableView.itemsProperty().bind(currentDirectory.directoryContentsProperty());
+        nameColumn.setCellValueFactory(cellValue -> cellValue.getValue().nameProperty());
 
-//        nameColumn.setCellValueFactory(cellData -> cellData.getValue().getFileName().toString());
 
         // initialize the default address to the user home
-        setAddress(System.getProperty("user.home"));
+        currentDirectory.setPath(System.getProperty("user.home"));
 
     }
 
