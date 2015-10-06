@@ -34,4 +34,8 @@ public class DirectoryContent {
         return path;
     }
 
+    @Override
+    public String toString() {
+        return name.get();
+    }
 }

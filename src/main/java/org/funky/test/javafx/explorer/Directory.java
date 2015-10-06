@@ -29,13 +29,14 @@ public class Directory {
 
     private ObservableList<DirectoryContent> getDirectoryContents(Path path) {
         ObservableList<DirectoryContent> result = FXCollections.observableArrayList();
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path)) {
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(path, entry -> !Files.isHidden(entry))) {
             for (Path child : stream) {
                 result.add(new DirectoryContent(child));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        result.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
         return result;
     }
 
