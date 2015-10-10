@@ -14,7 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * The directory being watched.
+ * A directory model.
  */
 public class Directory {
 
@@ -40,20 +40,12 @@ public class Directory {
         return result;
     }
 
-    public String getPath() {
-        return path.get();
-    }
-
     public StringProperty pathProperty() {
         return path;
     }
 
     public void setPath(String path) {
         this.path.set(path);
-    }
-
-    public ObservableList<DirectoryContent> getDirectoryContents() {
-        return directoryContents.get();
     }
 
     public ListProperty<DirectoryContent> directoryContentsProperty() {

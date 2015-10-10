@@ -1,8 +1,12 @@
 package org.funky.test.javafx.explorer;
 
+import javafx.beans.property.ReadOnlyLongProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -11,11 +15,25 @@ import java.nio.file.Path;
 public class DirectoryContent {
 
     private final ReadOnlyStringProperty name;
+    private final ReadOnlyLongProperty size;
     private final ReadOnlyStringProperty path;
 
     public DirectoryContent(Path path) {
         this.name = new SimpleStringProperty(path.getFileName().toString());
+        this.size = new SimpleLongProperty(sizeOf(path));
         this.path = new SimpleStringProperty(path.toString());
+    }
+
+    private long sizeOf(Path path) {
+        try {
+            if (Files.isDirectory(path)) {
+                return -1;
+            } else {
+                return Files.size(path);
+            }
+        } catch (IOException e) {
+            return -1;
+        }
     }
 
     public String getName() {
@@ -26,12 +44,8 @@ public class DirectoryContent {
         return name;
     }
 
-    public String getPath() {
-        return path.get();
-    }
-
-    public ReadOnlyStringProperty  pathProperty() {
-        return path;
+    public ReadOnlyLongProperty sizeProperty() {
+        return size;
     }
 
     @Override

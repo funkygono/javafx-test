@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
+<?import org.funky.test.javafx.explorer.FileSizeCellFactory?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.funky.test.javafx.explorer.ExplorerController">
     <top>
@@ -13,6 +14,9 @@
             <TableView fx:id="tableView">
                 <columns>
                     <TableColumn text="Name" fx:id="nameColumn"/>
+                    <TableColumn text="Size" fx:id="sizeColumn">
+                        <cellFactory><FileSizeCellFactory/></cellFactory>
+                    </TableColumn>
                 </columns>
             </TableView>
         </SplitPane>
