@@ -15,7 +15,9 @@
                 <columns>
                     <TableColumn text="Name" fx:id="nameColumn"/>
                     <TableColumn text="Size" fx:id="sizeColumn">
-                        <cellFactory><FileSizeCellFactory/></cellFactory>
+                        <cellFactory>
+                            <FileSizeCellFactory/>
+                        </cellFactory>
                     </TableColumn>
                 </columns>
             </TableView>
@@ -23,4 +25,3 @@
     </center>
 
 </BorderPane>
-
