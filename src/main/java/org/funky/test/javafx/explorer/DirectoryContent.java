@@ -16,12 +16,10 @@ public class DirectoryContent {
 
     private final ReadOnlyStringProperty name;
     private final ReadOnlyLongProperty size;
-    private final ReadOnlyStringProperty path;
 
     public DirectoryContent(Path path) {
         this.name = new SimpleStringProperty(path.getFileName().toString());
         this.size = new SimpleLongProperty(sizeOf(path));
-        this.path = new SimpleStringProperty(path.toString());
     }
 
     private long sizeOf(Path path) {
