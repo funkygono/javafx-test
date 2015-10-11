@@ -16,10 +16,20 @@ public class DirectoryContent {
 
     private final ReadOnlyStringProperty name;
     private final ReadOnlyLongProperty size;
+    private final SimpleStringProperty contentTypeProperty;
 
-    public DirectoryContent(Path path) {
+    public DirectoryContent(Path path) throws IOException {
         this.name = new SimpleStringProperty(path.getFileName().toString());
         this.size = new SimpleLongProperty(sizeOf(path));
+        this.contentTypeProperty = new SimpleStringProperty(contentTypeOf(path));
+    }
+
+    private String contentTypeOf(Path path) throws IOException {
+        if (Files.isDirectory(path)) {
+            return "Directory";
+        } else {
+            return Files.probeContentType(path);
+        }
     }
 
     private long sizeOf(Path path) {
@@ -44,6 +54,10 @@ public class DirectoryContent {
 
     public ReadOnlyLongProperty sizeProperty() {
         return size;
+    }
+
+    public SimpleStringProperty contentTypePropertyProperty() {
+        return contentTypeProperty;
     }
 
     @Override

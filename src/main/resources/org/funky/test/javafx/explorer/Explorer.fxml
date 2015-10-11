@@ -19,6 +19,8 @@
                             <FileSizeCellFactory/>
                         </cellFactory>
                     </TableColumn>
+                    <TableColumn text="Type" fx:id="contentTypeColumn"/>
+                    <TableColumn text="Last modified" fx:id="lastModifiedColumn"/>
                 </columns>
             </TableView>
         </SplitPane>

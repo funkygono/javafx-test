@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
 
 import java.net.URL;
+import java.time.Instant;
 import java.util.ResourceBundle;
 
 /**
@@ -27,6 +28,10 @@ public class ExplorerController implements Initializable {
     private TableColumn<DirectoryContent, String> nameColumn;
     @FXML
     private TableColumn<DirectoryContent, Number> sizeColumn;
+    @FXML
+    private TableColumn<DirectoryContent, String> contentTypeColumn;
+    @FXML
+    private TableColumn<Directory, Instant> lastModifiedColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -40,6 +45,7 @@ public class ExplorerController implements Initializable {
         tableView.itemsProperty().bind(currentDirectory.directoryContentsProperty());
         nameColumn.setCellValueFactory(cellValue -> cellValue.getValue().nameProperty());
         sizeColumn.setCellValueFactory(cellValue -> cellValue.getValue().sizeProperty());
+        contentTypeColumn.setCellValueFactory(cellValue -> cellValue.getValue().contentTypePropertyProperty());
 
         // initialize the default address to the user home
         currentDirectory.setPath(System.getProperty("user.home"));
