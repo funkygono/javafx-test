@@ -45,16 +45,10 @@ public class ExplorerController implements Initializable {
         contentTypeColumn.setCellValueFactory(cellValue -> cellValue.getValue().contentTypeProperty());
         lastModifiedColumn.setCellValueFactory(cellValue -> cellValue.getValue().lastModifiedProperty());
 
-        tableView.setRowFactory(tableView -> {
-            TableRow<FileModel> row = new TableRow<>();
-            row.setOnMouseClicked(e -> {
-                if (e.getClickCount() == 2) {
-                    if (row.getItem().isDirectory()) {
-                        explorerModel.setPath(row.getItem().getPath().toString());
-                    }
-                }
-            });
-            return row;
+        tableView.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2 && tableView.getSelectionModel().getSelectedItem().isDirectory()) {
+                explorerModel.setPath(tableView.getSelectionModel().getSelectedItem().getPath().toString());
+            }
         });
 
         // initialize the default address to the user home
