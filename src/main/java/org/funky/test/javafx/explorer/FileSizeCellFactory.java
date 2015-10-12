@@ -7,10 +7,10 @@ import javafx.util.Callback;
 /**
  * A cell factory that can be used to display a "file size" column.
  */
-public class FileSizeCellFactory implements Callback<TableColumn<DirectoryContent, Number>, TableCell<DirectoryContent, Number>> {
+public class FileSizeCellFactory implements Callback<TableColumn<FileModel, Number>, TableCell<FileModel, Number>> {
     @Override
-    public TableCell<DirectoryContent, Number> call(TableColumn<DirectoryContent, Number> param) {
-        return new TableCell<DirectoryContent, Number>() {
+    public TableCell<FileModel, Number> call(TableColumn<FileModel, Number> param) {
+        return new TableCell<FileModel, Number>() {
             @Override
             protected void updateItem(Number item, boolean empty) {
                 if (empty || item.longValue() == -1) {

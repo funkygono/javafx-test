@@ -11,7 +11,7 @@ import java.time.ZoneId;
 /**
  * A directory content.
  */
-public class DirectoryContent {
+public class FileModel {
 
     private final ReadOnlyStringProperty name;
     private final ReadOnlyLongProperty size;
@@ -20,7 +20,7 @@ public class DirectoryContent {
     private final boolean directory;
     private Path path;
 
-    public DirectoryContent(Path path) throws IOException {
+    public FileModel(Path path) {
         this.name = new SimpleStringProperty(path.getFileName().toString());
         this.size = new SimpleLongProperty(sizeOf(path));
         this.contentType = new SimpleStringProperty(contentTypeOf(path));
@@ -29,15 +29,27 @@ public class DirectoryContent {
         this.path = path;
     }
 
-    private LocalDate lastModifiedOf(Path path) throws IOException {
-        return Files.getLastModifiedTime(path).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    private LocalDate lastModifiedOf(Path path) {
+        try {
+            return Files.getLastModifiedTime(path).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 
-    private String contentTypeOf(Path path) throws IOException {
+    private String contentTypeOf(Path path) {
         if (Files.isDirectory(path)) {
             return "Directory";
         } else {
+            return probeContentType(path);
+        }
+    }
+
+    private String probeContentType(Path path) {
+        try {
             return Files.probeContentType(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 

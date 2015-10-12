@@ -13,43 +13,44 @@ import java.util.ResourceBundle;
  */
 public class ExplorerController implements Initializable {
 
-    private final Directory currentDirectory = new Directory();
+    private final ExplorerModel explorerModel = new ExplorerModel();
 
     @FXML
     private TextField addressTextField;
     @FXML
     private TreeView<String> treeView;
     @FXML
-    private TableView<DirectoryContent> tableView;
+    private TableView<FileModel> tableView;
     @FXML
-    private TableColumn<DirectoryContent, String> nameColumn;
+    private TableColumn<FileModel, String> nameColumn;
     @FXML
-    private TableColumn<DirectoryContent, Number> sizeColumn;
+    private TableColumn<FileModel, Number> sizeColumn;
     @FXML
-    private TableColumn<DirectoryContent, String> contentTypeColumn;
+    private TableColumn<FileModel, String> contentTypeColumn;
     @FXML
-    private TableColumn<DirectoryContent, LocalDate> lastModifiedColumn;
+    private TableColumn<FileModel, LocalDate> lastModifiedColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         treeView.setRoot(new ComputerTreeItem());
-        addressTextField.textProperty().bindBidirectional(currentDirectory.pathProperty());
+        addressTextField.textProperty().bindBidirectional(explorerModel.pathProperty());
         treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue instanceof PathTreeItem) {
-                currentDirectory.setPath(((PathTreeItem) newValue).getPath().toString());
+                explorerModel.setPath(((PathTreeItem) newValue).getPath().toString());
             }
         });
-        tableView.itemsProperty().bind(currentDirectory.directoryContentsProperty());
+        tableView.itemsProperty().bind(explorerModel.fileModelsProperty());
         nameColumn.setCellValueFactory(cellValue -> cellValue.getValue().nameProperty());
         sizeColumn.setCellValueFactory(cellValue -> cellValue.getValue().sizeProperty());
         contentTypeColumn.setCellValueFactory(cellValue -> cellValue.getValue().contentTypeProperty());
         lastModifiedColumn.setCellValueFactory(cellValue -> cellValue.getValue().lastModifiedProperty());
+
         tableView.setRowFactory(tableView -> {
-            TableRow<DirectoryContent> row = new TableRow<>();
+            TableRow<FileModel> row = new TableRow<>();
             row.setOnMouseClicked(e -> {
                 if (e.getClickCount() == 2) {
                     if (row.getItem().isDirectory()) {
-                        currentDirectory.setPath(row.getItem().getPath().toString());
+                        explorerModel.setPath(row.getItem().getPath().toString());
                     }
                 }
             });
@@ -57,7 +58,7 @@ public class ExplorerController implements Initializable {
         });
 
         // initialize the default address to the user home
-        currentDirectory.setPath(System.getProperty("user.home"));
+        explorerModel.setPath(System.getProperty("user.home"));
 
     }
 
