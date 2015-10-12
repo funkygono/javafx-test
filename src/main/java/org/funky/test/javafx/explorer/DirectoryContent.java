@@ -1,13 +1,12 @@
 package org.funky.test.javafx.explorer;
 
-import javafx.beans.property.ReadOnlyLongProperty;
-import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 /**
  * A directory content.
@@ -16,12 +15,18 @@ public class DirectoryContent {
 
     private final ReadOnlyStringProperty name;
     private final ReadOnlyLongProperty size;
-    private final SimpleStringProperty contentTypeProperty;
+    private final SimpleStringProperty contentType;
+    private final SimpleObjectProperty<LocalDate> lastModified;
 
     public DirectoryContent(Path path) throws IOException {
         this.name = new SimpleStringProperty(path.getFileName().toString());
         this.size = new SimpleLongProperty(sizeOf(path));
-        this.contentTypeProperty = new SimpleStringProperty(contentTypeOf(path));
+        this.contentType = new SimpleStringProperty(contentTypeOf(path));
+        this.lastModified = new SimpleObjectProperty<>(lastModifiedOf(path));
+    }
+
+    private LocalDate lastModifiedOf(Path path) throws IOException {
+        return Files.getLastModifiedTime(path).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     private String contentTypeOf(Path path) throws IOException {
@@ -56,8 +61,12 @@ public class DirectoryContent {
         return size;
     }
 
-    public SimpleStringProperty contentTypePropertyProperty() {
-        return contentTypeProperty;
+    public SimpleStringProperty contentTypeProperty() {
+        return contentType;
+    }
+
+    public SimpleObjectProperty<LocalDate> lastModifiedProperty() {
+        return lastModified;
     }
 
     @Override
