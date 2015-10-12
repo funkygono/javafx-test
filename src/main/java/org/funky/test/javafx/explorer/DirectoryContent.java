@@ -17,12 +17,16 @@ public class DirectoryContent {
     private final ReadOnlyLongProperty size;
     private final SimpleStringProperty contentType;
     private final SimpleObjectProperty<LocalDate> lastModified;
+    private final boolean directory;
+    private Path path;
 
     public DirectoryContent(Path path) throws IOException {
         this.name = new SimpleStringProperty(path.getFileName().toString());
         this.size = new SimpleLongProperty(sizeOf(path));
         this.contentType = new SimpleStringProperty(contentTypeOf(path));
         this.lastModified = new SimpleObjectProperty<>(lastModifiedOf(path));
+        this.directory = Files.isDirectory(path);
+        this.path = path;
     }
 
     private LocalDate lastModifiedOf(Path path) throws IOException {
@@ -72,5 +76,13 @@ public class DirectoryContent {
     @Override
     public String toString() {
         return name.get();
+    }
+
+    public boolean isDirectory() {
+        return directory;
+    }
+
+    public Path getPath() {
+        return path;
     }
 }

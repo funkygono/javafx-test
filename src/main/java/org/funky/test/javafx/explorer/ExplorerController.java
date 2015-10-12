@@ -2,10 +2,7 @@ package org.funky.test.javafx.explorer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -47,6 +44,17 @@ public class ExplorerController implements Initializable {
         sizeColumn.setCellValueFactory(cellValue -> cellValue.getValue().sizeProperty());
         contentTypeColumn.setCellValueFactory(cellValue -> cellValue.getValue().contentTypeProperty());
         lastModifiedColumn.setCellValueFactory(cellValue -> cellValue.getValue().lastModifiedProperty());
+        tableView.setRowFactory(tableView -> {
+            TableRow<DirectoryContent> row = new TableRow<>();
+            row.setOnMouseClicked(e -> {
+                if (e.getClickCount() == 2) {
+                    if (row.getItem().isDirectory()) {
+                        currentDirectory.setPath(row.getItem().getPath().toString());
+                    }
+                }
+            });
+            return row;
+        });
 
         // initialize the default address to the user home
         currentDirectory.setPath(System.getProperty("user.home"));
