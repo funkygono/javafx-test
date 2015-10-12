@@ -48,4 +48,7 @@ public class ExplorerModel {
         return fileModels;
     }
 
+    public String getPath() {
+        return path.get();
+    }
 }
