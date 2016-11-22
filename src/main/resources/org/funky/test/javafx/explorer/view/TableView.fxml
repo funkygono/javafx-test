@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import org.funky.test.javafx.explorer.FileSizeCellFactory?>
+<TableView xmlns:fx="http://javafx.com/fxml/1"
+           fx:id="tableView"
+           fx:controller="org.funky.test.javafx.explorer.view.TableViewController">
+    <columns>
+        <TableColumn text="Name" fx:id="nameColumn"/>
+        <TableColumn text="Size" fx:id="sizeColumn">
+            <cellFactory>
+                <FileSizeCellFactory/>
+            </cellFactory>
+        </TableColumn>
+        <TableColumn text="Type" fx:id="contentTypeColumn"/>
+        <TableColumn text="Last modified" fx:id="lastModifiedColumn"/>
+    </columns>
+</TableView>

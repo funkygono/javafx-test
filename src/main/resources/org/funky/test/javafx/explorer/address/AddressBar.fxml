@@ -1,0 +1,5 @@
+<?import javafx.scene.control.TextField?>
+<TextField xmlns:fx="http://javafx.com/fxml/1"
+           fx:id="addressTextField"
+           fx:controller="org.funky.test.javafx.explorer.address.AddressBarController"
+           promptText="Address"/>
