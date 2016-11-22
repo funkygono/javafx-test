@@ -3,6 +3,7 @@ package org.funky.test.javafx.explorer;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
+import org.funky.test.javafx.explorer.model.FileModel;
 
 /**
  * A cell factory that can be used to display a "file size" column.

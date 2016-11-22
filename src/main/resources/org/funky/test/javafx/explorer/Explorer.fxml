@@ -10,19 +10,27 @@
 
     <center>
         <SplitPane>
-            <TreeView fx:id="treeView" showRoot="false"/>
-            <TableView fx:id="tableView">
-                <columns>
-                    <TableColumn text="Name" fx:id="nameColumn"/>
-                    <TableColumn text="Size" fx:id="sizeColumn">
-                        <cellFactory>
-                            <FileSizeCellFactory/>
-                        </cellFactory>
-                    </TableColumn>
-                    <TableColumn text="Type" fx:id="contentTypeColumn"/>
-                    <TableColumn text="Last modified" fx:id="lastModifiedColumn"/>
-                </columns>
-            </TableView>
+            <TreeView fx:id="treeView" showRoot="false" prefWidth="300"/>
+            <TabPane tabClosingPolicy="UNAVAILABLE" prefWidth="500">
+                <Tab text="Table">
+                    <TableView fx:id="tableView">
+                        <columns>
+                            <TableColumn text="Name" fx:id="nameColumn"/>
+                            <TableColumn text="Size" fx:id="sizeColumn">
+                                <cellFactory>
+                                    <FileSizeCellFactory/>
+                                </cellFactory>
+                            </TableColumn>
+                            <TableColumn text="Type" fx:id="contentTypeColumn"/>
+                            <TableColumn text="Last modified" fx:id="lastModifiedColumn"/>
+                        </columns>
+                    </TableView>
+                </Tab>
+                <Tab text="List">
+                    <ListView fx:id="listView" orientation="HORIZONTAL">
+                    </ListView>
+                </Tab>
+            </TabPane>
         </SplitPane>
     </center>
 

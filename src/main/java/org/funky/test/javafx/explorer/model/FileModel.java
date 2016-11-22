@@ -1,4 +1,4 @@
-package org.funky.test.javafx.explorer;
+package org.funky.test.javafx.explorer.model;
 
 import javafx.beans.property.*;
 
