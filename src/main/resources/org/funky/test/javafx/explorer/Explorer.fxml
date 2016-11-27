@@ -9,7 +9,7 @@
 
     <center>
         <SplitPane>
-            <TreeView fx:id="treeView" showRoot="false" prefWidth="300"/>
+            <fx:include fx:id="treeView" source="view/TreeView.fxml"/>
             <TabPane tabClosingPolicy="UNAVAILABLE" prefWidth="500">
                 <Tab text="Table">
                     <fx:include fx:id="tableView" source="view/TableView.fxml"/>
