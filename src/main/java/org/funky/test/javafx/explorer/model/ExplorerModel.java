@@ -84,7 +84,11 @@ public class ExplorerModel {
         this.currentPath.set(currentPath);
     }
 
-    public ListProperty<Exception> getErrorsProperty() {
+    /**
+     * Returns the this property that contains the unhandled exceptions.
+     * @return the errors list property
+     */
+    public ListProperty<Exception> errorsProperty() {
         return errors;
     }
 }

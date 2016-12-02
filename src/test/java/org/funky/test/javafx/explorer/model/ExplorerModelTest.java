@@ -35,7 +35,7 @@ public class ExplorerModelTest {
     public void test__SetInvalidPath() throws Exception {
         explorerModel.setCurrentPath(getFilePath("data/directory1") + "/unknown-directory");
         assertThat(explorerModel.filesProperty()).isEmpty();
-        assertThat(explorerModel.getErrorsProperty())
+        assertThat(explorerModel.errorsProperty())
                 .hasSize(1)
                 .extracting(Object::getClass)
                 .containsOnly(NoSuchFileException.class);
