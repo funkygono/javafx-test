@@ -2,6 +2,7 @@ package org.funky.test.javafx.explorer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TabPane;
 import org.funky.test.javafx.explorer.address.AddressBarController;
 import org.funky.test.javafx.explorer.model.ExplorerModel;
 import org.funky.test.javafx.explorer.view.ListViewController;
@@ -26,6 +27,8 @@ public class ExplorerController implements Initializable {
     private ListViewController listViewController;
     @FXML
     private TreeViewController treeViewController;
+    @FXML
+    private TabPane tabPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -33,6 +36,7 @@ public class ExplorerController implements Initializable {
         tableViewController.setExplorerModel(explorerModel);
         listViewController.setExplorerModel(explorerModel);
         treeViewController.setExplorerModel(explorerModel);
+        tabPane.getTabs().get(0).textProperty().bind(explorerModel.currentPathProperty());
 
         // initialize the default address to the user home
         explorerModel.setCurrentPath(System.getProperty("user.home"));

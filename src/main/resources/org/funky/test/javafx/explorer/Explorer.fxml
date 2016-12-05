@@ -8,17 +8,21 @@
     </top>
 
     <center>
-        <SplitPane>
-            <fx:include fx:id="treeView" source="view/TreeView.fxml"/>
-            <TabPane tabClosingPolicy="UNAVAILABLE" prefWidth="500">
-                <Tab text="Table">
-                    <fx:include fx:id="tableView" source="view/TableView.fxml"/>
-                </Tab>
-                <Tab text="List">
-                    <fx:include fx:id="listView" source="view/ListView.fxml"/>
-                </Tab>
-            </TabPane>
-        </SplitPane>
+        <TabPane fx:id="tabPane">
+            <Tab>
+                <SplitPane>
+                    <fx:include fx:id="treeView" source="view/TreeView.fxml"/>
+                    <TabPane tabClosingPolicy="UNAVAILABLE" prefWidth="500">
+                        <Tab text="Table">
+                            <fx:include fx:id="tableView" source="view/TableView.fxml"/>
+                        </Tab>
+                        <Tab text="List">
+                            <fx:include fx:id="listView" source="view/ListView.fxml"/>
+                        </Tab>
+                    </TabPane>
+                </SplitPane>
+            </Tab>
+        </TabPane>
     </center>
 
 </BorderPane>
